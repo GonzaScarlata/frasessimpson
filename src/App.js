@@ -15,14 +15,18 @@ function App() {
 
   const consultarAPI = async() =>{
       const respuesta = await fetch('https://thesimpsonsquoteapi.glitch.me/quotes');
-      console.log(respuesta);
+      const resultado = await respuesta.json();
+
+      console.log(resultado[0]);
+      // Guardar los datos en el state
+      setPersonaje(resultado[0]);
   }
 
   return (
    <section className='container my-5 d-flex flex-column align-items-center'>
      <img src={process.env.PUBLIC_URL+'logo.png'} alt="logo simpsons" className='w-75 my-4'/>
-     <Button variant="warning">Obtener frase</Button>
-     <Frase></Frase>
+     <Button variant="warning" onClick={()=> consultarAPI()}>Obtener frase</Button>
+     <Frase personaje={personaje}></Frase>
    </section>
   );
 }
